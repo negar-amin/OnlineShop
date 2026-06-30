@@ -3,7 +3,7 @@ using OnlineShop.Contracts.RepositoryContracts.Command.Common;
 
 namespace OnlineShop.Infra.Command.Common;
 
-internal class CommandRepository : IBaseCommandRepository
+public class CommandRepository : IBaseCommandRepository
 {
     private readonly CommandDbContext _commandDbContext;
     public CommandRepository(CommandDbContext commandDbContext)
