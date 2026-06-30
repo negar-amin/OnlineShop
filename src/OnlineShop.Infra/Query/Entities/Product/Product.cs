@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Domain;
+﻿namespace OnlineShop.Infra.Query.Entities;
 
 public class Product
 {
