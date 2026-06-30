@@ -4,7 +4,7 @@ using OnlineShop.Domain;
 using OnlineShop.Infra.Command.Configs;
 namespace OnlineShop.Infra.Command.Common;
 
-internal class CommandDbContext : DbContext
+public class CommandDbContext : DbContext
 {
     public CommandDbContext(DbContextOptions<CommandDbContext> options)
     : base(options)
@@ -16,6 +16,9 @@ internal class CommandDbContext : DbContext
     public DbSet<LineItem> LineItems { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfigs).Assembly); ;
+        modelBuilder.ApplyConfiguration(new ProductConfigs());
+        modelBuilder.ApplyConfiguration(new OrderConfigs());
+        modelBuilder.ApplyConfiguration(new CustomerConfigs());
+        modelBuilder.ApplyConfiguration(new LineItemConfigs());
     }
 }
