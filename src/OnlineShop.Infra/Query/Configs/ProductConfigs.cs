@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineShop.Infra.Query.Entities;
+using OnlineShop.Domain.QueryEntities;
 
 namespace OnlineShop.Infra.Query.Configs;
 

@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Domain;
+﻿namespace OnlineShop.Domain.QueryEntities;
 
 public class LineItem
 {

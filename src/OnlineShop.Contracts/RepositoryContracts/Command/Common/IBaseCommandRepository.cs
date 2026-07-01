@@ -1,11 +1,11 @@
 ﻿namespace OnlineShop.Contracts.RepositoryContracts.Command.Common;
 
-public interface IBaseCommandRepository
+public interface IBaseCommandRepository<T> where T : class
 {
-    Task AddAsync<T>(T entity, CancellationToken ct = default) where T : class;
-    void Update<T>(T entity) where T : class;
-    void Delete<T>(T entity) where T : class;
+    Task AddAsync(T entity, CancellationToken ct = default); 
+    void Update(T entity);
+    void Delete(T entity);
 
-    Task AddRangeAsync<T>(IEnumerable<T> entities, CancellationToken ct = default) where T : class;
-    void DeleteRange<T>(IEnumerable<T> entities) where T : class;
+    Task AddRangeAsync(IEnumerable<T> entities, CancellationToken ct = default);
+    void DeleteRange(IEnumerable<T> entities);
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.QueryEntities;
 using OnlineShop.Infra.Command.Common;
 using OnlineShop.Infra.Query.Configs;
-using OnlineShop.Infra.Query.Entities;
 
 namespace OnlineShop.Infra.Query.Common;
 

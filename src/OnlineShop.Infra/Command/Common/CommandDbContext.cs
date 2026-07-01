@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
-using OnlineShop.Domain;
 using OnlineShop.Infra.Command.Configs;
+using OnlineShop.Domain.CommandEntities;
+using OnlineShop.Domain.CommandEntities;
+using OnlineShop.Domain.CommandEntities;
 namespace OnlineShop.Infra.Command.Common;
 
 public class CommandDbContext : DbContext

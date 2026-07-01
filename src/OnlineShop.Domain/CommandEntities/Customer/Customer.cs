@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Domain;
+﻿namespace OnlineShop.Domain.CommandEntities;
 
 public class Customer
 {

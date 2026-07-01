@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineShop.Domain;
+using OnlineShop.Domain.CommandEntities;
 
 namespace OnlineShop.Infra.Command.Configs;
 
