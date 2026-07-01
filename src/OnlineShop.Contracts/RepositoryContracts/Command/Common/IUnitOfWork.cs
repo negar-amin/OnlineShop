@@ -1,9 +1,11 @@
-﻿namespace OnlineShop.Contracts.RepositoryContracts.Command.Common;
+﻿using OnlineShop.Domain.CommandEntities;
+
+namespace OnlineShop.Contracts.RepositoryContracts.Command.Common;
 
 public interface IUnitOfWork
 {
-    IProductRepository Products { get; }
-    IOrderRepository Orders { get; }
-    ICustomerRepository Customers { get; }
+    IBaseCommandRepository<Product> Products { get; }
+    IBaseCommandRepository<Order> Orders { get; }
+    IBaseCommandRepository<Customer> Customers { get; }
     Task<int> SaveChangesAsync(CancellationToken ct = default);
 }

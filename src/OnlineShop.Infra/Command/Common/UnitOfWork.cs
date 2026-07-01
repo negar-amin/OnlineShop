@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Contracts.RepositoryContracts.Command;
 using OnlineShop.Contracts.RepositoryContracts.Command.Common;
+using OnlineShop.Domain.CommandEntities;
 
 namespace OnlineShop.Infra.Command.Common;
 
@@ -7,7 +8,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly CommandDbContext _context;
 
-    public UnitOfWork(CommandDbContext context,IOrderRepository orders, ICustomerRepository customers, IProductRepository products)
+    public UnitOfWork(CommandDbContext context,IBaseCommandRepository<Order> orders, IBaseCommandRepository<Customer> customers, IBaseCommandRepository<Product> products)
     {
         Orders = orders;
         Products = products;
@@ -15,11 +16,11 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
-    public IProductRepository Products { get; }
+    public IBaseCommandRepository<Product> Products { get; }
 
-    public IOrderRepository Orders { get; }
+    public IBaseCommandRepository<Order> Orders { get; }
 
-    public ICustomerRepository Customers { get; }
+    public IBaseCommandRepository<Customer> Customers { get; }
 
     public Task<int> SaveChangesAsync(CancellationToken ct = default)
     {

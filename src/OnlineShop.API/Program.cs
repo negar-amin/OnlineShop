@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Application.Customers.CustomerCommands;
+using OnlineShop.Contracts.RepositoryContracts.Command;
+using OnlineShop.Contracts.RepositoryContracts.Command.Common;
+using OnlineShop.Infra.Command;
 using OnlineShop.Infra.Command.Common;
 using OnlineShop.Infra.Query.Common;
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +14,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Command DbContext
 builder.Services.AddDbContext<CommandDbContext>(options =>
     options.UseSqlServer(connectionString));
-
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).Assembly);
+});
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IBaseCommandRepository<>), typeof(BaseCommandRepository<>));
 // Read DbContext
 builder.Services.AddDbContext<QueryDbContext>(options =>
-    options.UseSqlServer(connectionString));
+options.UseSqlServer(connectionString));
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
@@ -28,25 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
 

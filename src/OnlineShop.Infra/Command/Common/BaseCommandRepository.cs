@@ -3,10 +3,10 @@ using OnlineShop.Contracts.RepositoryContracts.Command.Common;
 
 namespace OnlineShop.Infra.Command.Common;
 
-public class CommandRepository<T> : IBaseCommandRepository<T> where T : class
+public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : class
 {
     private readonly CommandDbContext _commandDbContext;
-    public CommandRepository(CommandDbContext commandDbContext)
+    public BaseCommandRepository(CommandDbContext commandDbContext)
     {
         _commandDbContext = commandDbContext;
     }
