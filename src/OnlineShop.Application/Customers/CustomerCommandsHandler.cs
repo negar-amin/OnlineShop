@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using OnlineShop.Application.Customers.CustomerCommands;
+using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Contracts.RepositoryContracts.Command.Common;
 using OnlineShop.Domain.CommandEntities;
 namespace OnlineShop.Application.Customers.CustomerCommandsHandler;
 
-public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Guid>
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CommandResult<Customer>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -13,7 +14,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         _uow = uow;
     }
 
-    public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<CommandResult<Customer>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         var customer = Customer.Create(
             request.FirstName,
@@ -22,6 +23,6 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         );
         await _uow.Customers.AddAsync(customer);
         await _uow.SaveChangesAsync();
-        return customer.Id;
+        return CommandResult<Customer>.Success(customer);
     }
 }

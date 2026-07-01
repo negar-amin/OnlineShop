@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using OnlineShop.Contracts.Commands.Common;
+using OnlineShop.Domain.CommandEntities;
 
 namespace OnlineShop.Application.Customers.CustomerCommands;
 
 
-public class CreateCustomerCommand : IRequest<Guid>
+public class CreateCustomerCommand : IRequest<CommandResult<Customer>>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
