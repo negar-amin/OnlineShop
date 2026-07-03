@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using OnlineShop.Application.Customers.CustomerCommands;
 using OnlineShop.Contracts.Commands.Common;
-using OnlineShop.Contracts.RepositoryContracts.Command.Common;
 using OnlineShop.Domain.CommandEntities;
 namespace OnlineShop.Application.Customers.CustomerCommandsHandler;
 

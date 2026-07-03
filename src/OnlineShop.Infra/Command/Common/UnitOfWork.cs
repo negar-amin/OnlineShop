@@ -1,5 +1,4 @@
-﻿using OnlineShop.Contracts.RepositoryContracts.Command;
-using OnlineShop.Contracts.RepositoryContracts.Command.Common;
+﻿using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Domain.CommandEntities;
 
 namespace OnlineShop.Infra.Command.Common;

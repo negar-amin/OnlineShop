@@ -1,6 +1,6 @@
 ﻿using OnlineShop.Domain.CommandEntities;
 
-namespace OnlineShop.Contracts.RepositoryContracts.Command.Common;
+namespace OnlineShop.Contracts.Commands.Common;
 
 public interface IUnitOfWork
 {

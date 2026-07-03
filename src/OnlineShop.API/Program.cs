@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Application.Customers.CustomerCommands;
-using OnlineShop.Contracts.RepositoryContracts.Command;
-using OnlineShop.Contracts.RepositoryContracts.Command.Common;
-using OnlineShop.Infra.Command;
+using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Infra.Command.Common;
 using OnlineShop.Infra.Query.Common;
 var builder = WebApplication.CreateBuilder(args);

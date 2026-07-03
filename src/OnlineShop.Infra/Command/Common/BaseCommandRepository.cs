@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Contracts.RepositoryContracts.Command.Common;
+using OnlineShop.Contracts.Commands.Common;
+using OnlineShop.Domain.Common;
 
 namespace OnlineShop.Infra.Command.Common;
 
-public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : class
+public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : Entity
 {
     private readonly CommandDbContext _commandDbContext;
     public BaseCommandRepository(CommandDbContext commandDbContext)
@@ -14,7 +15,10 @@ public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : clas
     {
         await _commandDbContext.Set<T>().AddAsync(entity, ct);
     }
-
+    public async Task<T?> GetByIdAsync(Guid id, CancellationToken ct = default)
+    {
+        return await _commandDbContext.Set<T>().FindAsync(new object[] { id }, ct);
+    }
     public void Update(T entity)
     {
         _commandDbContext.Set<T>().Update(entity);
@@ -34,5 +38,13 @@ public class BaseCommandRepository<T> : IBaseCommandRepository<T> where T : clas
     {
         _commandDbContext.Set<T>().RemoveRange(entities);
     }
-
+    public async Task<List<T>> GetByIdsAsync(
+    IEnumerable<Guid> ids,
+    CancellationToken ct = default)
+    {
+        return await _commandDbContext
+            .Set<T>()
+            .Where(x => ids.Contains(x.Id))
+            .ToListAsync(ct);
+    }
 }
