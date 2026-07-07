@@ -2,6 +2,7 @@
 using OnlineShop.Application.Customers.CustomerCommands;
 using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Domain.CommandEntities;
+using OnlineShop.Domain.ValueObjects;
 namespace OnlineShop.Application.Customers.CustomerCommandsHandler;
 
 public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CommandResult<Customer>>
@@ -15,13 +16,20 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
     public async Task<CommandResult<Customer>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var customer = Customer.Create(
-            request.FirstName,
-            request.LastName,
-            request.PhoneNumber
-        );
-        await _uow.Customers.AddAsync(customer);
-        await _uow.SaveChangesAsync();
-        return CommandResult<Customer>.Success(customer);
+        try
+        {
+            var customer = Customer.Create(
+                request.FirstName,
+                request.LastName,
+                PhoneNumber.Create(request.PhoneNumber)
+            );
+            await _uow.Customers.AddAsync(customer);
+            await _uow.SaveChangesAsync();
+            return CommandResult<Customer>.Success(customer);
+        }
+        catch (Exception ex)
+        {
+            return CommandResult.Failure(ex.Message);
+        }
     }
 }
