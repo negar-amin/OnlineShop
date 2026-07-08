@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using OnlineShop.Application.Customers.CustomerCommands;
 using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Domain.CommandEntities;
 using OnlineShop.Domain.ValueObjects;
-namespace OnlineShop.Application.Customers.CustomerCommandsHandler;
+namespace OnlineShop.Application.Customers.Commands;
 
 public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CommandResult<Customer>>
 {

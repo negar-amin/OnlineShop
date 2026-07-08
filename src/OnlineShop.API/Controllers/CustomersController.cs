@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Application.Customers.CustomerCommands;
+using OnlineShop.Application.Customers.Commands;
+using OnlineShop.Application.Customers.Queries;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace OnlineShop.API.Controllers;
 
@@ -20,5 +22,11 @@ public class CustomersController : ControllerBase
     {
         var id = await _mediator.Send(command);
         return Ok(id);
+    }
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAllCustomers()
+    {
+        var result = await _mediator.Send(new GetCustomersQuery());
+        return Ok(result);
     }
 }

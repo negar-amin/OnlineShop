@@ -7,7 +7,7 @@ namespace OnlineShop.Infra.Query.Common;
 
 public class QueryDbContext : DbContext
 {
-    public QueryDbContext(DbContextOptions<CommandDbContext> options)
+    public QueryDbContext(DbContextOptions<QueryDbContext> options)
 : base(options)
     {
     }

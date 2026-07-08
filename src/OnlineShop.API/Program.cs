@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Application.Customers.CustomerCommands;
+using OnlineShop.Application.Customers.Commands;
 using OnlineShop.Contracts.Commands.Common;
+using OnlineShop.Contracts.Query;
 using OnlineShop.Infra.Command.Common;
 using OnlineShop.Infra.Query.Common;
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddMediatR(cfg =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IBaseCommandRepository<>), typeof(BaseCommandRepository<>));
+builder.Services.AddScoped(typeof(IBaseQueryRepository<>), typeof(BaseQueryRepository<>));
 // Read DbContext
 builder.Services.AddDbContext<QueryDbContext>(options =>
 options.UseSqlServer(connectionString));

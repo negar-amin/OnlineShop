@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Domain.QueryEntities;
+﻿using OnlineShop.Domain.ValueObjects;
+
+namespace OnlineShop.Domain.QueryEntities;
 
 public class Customer
 {

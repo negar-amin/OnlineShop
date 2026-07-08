@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Application.Customers.CustomerCommands;
 using OnlineShop.Application.Orders;
 
 namespace OnlineShop.API.Controllers

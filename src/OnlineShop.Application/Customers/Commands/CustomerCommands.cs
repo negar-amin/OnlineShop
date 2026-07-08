@@ -2,7 +2,7 @@
 using OnlineShop.Contracts.Commands.Common;
 using OnlineShop.Domain.CommandEntities;
 
-namespace OnlineShop.Application.Customers.CustomerCommands;
+namespace OnlineShop.Application.Customers.Commands;
 
 
 public class CreateCustomerCommand : IRequest<CommandResult<Customer>>
