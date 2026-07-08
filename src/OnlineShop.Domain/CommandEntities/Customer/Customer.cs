@@ -17,9 +17,21 @@ public class Customer : Entity
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
+        AddDomainEvent(new CustomerCreatedDomainEvent(Id));
     }
     public static Customer Create(string firstName, string lastName, PhoneNumber phoneNumber)
     {
-        return new Customer(firstName, lastName, phoneNumber);
+        var customer = new Customer(firstName, lastName, phoneNumber);
+        return customer;
+    }
+}
+public sealed class CustomerCreatedDomainEvent : IDomainEvent
+{
+    public Guid CustomerId { get; }
+    public DateTime OccurredOn { get; } = DateTime.UtcNow;
+
+    public CustomerCreatedDomainEvent(Guid customerId)
+    {
+        CustomerId = customerId;
     }
 }

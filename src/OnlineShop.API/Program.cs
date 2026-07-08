@@ -11,8 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Command DbContext
-builder.Services.AddDbContext<CommandDbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<CommandDbContext>((sp,options) =>
+{
+    options.UseSqlServer(connectionString);
+    options.AddInterceptors(sp.GetRequiredService<ConvertDomainEventsToOutboxInterceptor>());
+
+});
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommand).Assembly);
@@ -20,6 +24,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IBaseCommandRepository<>), typeof(BaseCommandRepository<>));
 builder.Services.AddScoped(typeof(IBaseQueryRepository<>), typeof(BaseQueryRepository<>));
+builder.Services.AddSingleton<ConvertDomainEventsToOutboxInterceptor>();
 // Read DbContext
 builder.Services.AddDbContext<QueryDbContext>(options =>
 options.UseSqlServer(connectionString));
