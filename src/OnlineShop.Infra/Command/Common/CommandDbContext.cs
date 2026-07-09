@@ -29,32 +29,4 @@ public class CommandDbContext : DbContext
         modelBuilder.ApplyConfiguration(new LineItemConfigs());
         modelBuilder.ApplyConfiguration(new OutboxMessageConfigs());
     }
-    public override async Task<int> SaveChangesAsync(
-    CancellationToken cancellationToken = default)
-    {
-        var domainEvents = ChangeTracker
-            .Entries<Entity>()
-            .SelectMany(x => x.Entity.DomainEvents)
-            .ToList();
-
-        foreach (var domainEvent in domainEvents)
-        {
-            OutboxMessages.Add(new OutboxMessage
-            {
-                Id = Guid.NewGuid(),
-                Type = domainEvent.GetType().FullName!,
-                Payload = JsonSerializer.Serialize(domainEvent),
-                OccurredOn = domainEvent.OccurredOn
-            });
-        }
-
-        var result = await base.SaveChangesAsync(cancellationToken);
-
-        foreach (var entity in ChangeTracker.Entries<Entity>())
-        {
-            entity.Entity.ClearDomainEvents();
-        }
-
-        return result;
-    }
 }
